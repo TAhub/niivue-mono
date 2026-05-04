@@ -770,6 +770,8 @@ export type CompletedAngle = {
 export type ImageFromUrlOptions = {
   /** URL or File pointing to the volume */
   url: string | File
+  /** A manually specified extension, if it cannot be derived from the URL **/
+  extension?: string
   /** URL or File for detached image data (e.g., AFNI .HEAD/.BRIK) */
   urlImageData?: string | File
   /** Display name for this volume */

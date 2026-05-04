@@ -70,13 +70,14 @@ export function registerExternalReader(
 export async function loadVolume(
   url: string | File,
   pairedImgData: string | File | null = null,
+  fixedExtension: string | null = null,
 ): Promise<{ hdr: NIFTI1 | NIFTI2; img: ArrayBuffer | TypedVoxelArray }> {
   const result = await NVLoader.fetchFile(url)
   const pairedBuffer = pairedImgData
     ? await NVLoader.fetchFile(pairedImgData)
     : null
   const name = NVLoader.getName(url)
-  const ext = NVLoader.getFileExt(url)
+  const ext = fixedExtension ?? NVLoader.getFileExt(url)
   let reader = readerByExt.get(ext)
   if (!reader || typeof reader.read !== 'function') {
     log.warn(`Unsupported volume format "${ext}", falling back to NIfTI reader`)

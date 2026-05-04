@@ -745,11 +745,11 @@ export default class NVModel {
       return { ...NVModel.volumeDefaults, ...volume }
     }
     const opts = volume as ImageFromUrlOptions
-    const { url, urlImageData, limitFrames4D, ...overrides } = opts
+    const { url, urlImageData, limitFrames4D, extension, ...overrides } = opts
     if (!url) {
       throw new Error('prepareVolume requires a url or an NVImage object')
     }
-    const nii = await NVVolume.loadVolume(url, urlImageData ?? null)
+    const nii = await NVVolume.loadVolume(url, urlImageData ?? null, extension)
     const urlString = typeof url === 'string' ? url : url.name
     const name = overrides.name ?? urlString
     const base = NVVolume.nii2volume(nii.hdr, nii.img, name, limitFrames4D)
